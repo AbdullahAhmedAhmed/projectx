@@ -1,0 +1,32 @@
+<!-- templates/kol.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Received Number</title>
+</head>
+<body>
+    <h1>Received Number:</h1>
+    <div id="numberDisplay">{{ number }}</div>
+
+    <script>
+        // Function to update the displayed number
+        function updateNumber() {
+            fetch('/get_number')  // Fetch current number from backend
+                .then(response => response.json())
+                .then(data => {
+                    const numberDisplay = document.getElementById('numberDisplay');
+                    numberDisplay.textContent = data.number;  // Update the displayed number
+                })
+                .catch(error => {
+                    console.error('Error fetching number:', error);
+                });
+        }
+
+        // Update the number every 1 second (1000 milliseconds)
+        setInterval(updateNumber, 1000);
+    </script>
+</body>
+</html>
